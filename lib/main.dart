@@ -51,3 +51,19 @@ class FlashcardViewerScreen extends StatelessWidget {
     );
   }
 }
+
+class AddFlashcardScreen extends StatelessWidget {
+  const AddFlashcardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      appBar: AppBar(
+        title: Text('Add Flashcard'),
+      ),
+      body: Center(
+        child: Text('Add Flashcard Form'),
+      ),
+    );
+  }
+}
