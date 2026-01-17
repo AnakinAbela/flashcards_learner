@@ -59,8 +59,23 @@ class FlashcardViewerScreen extends StatelessWidget {
   }
 }
 
-class AddFlashcardScreen extends StatelessWidget {
+class AddFlashcardScreen extends StatefulWidget {
   const AddFlashcardScreen({super.key});
+
+  @override
+  State<AddFlashcardScreen> createState() => _AddFlashcardScreenState();
+}
+
+class _AddFlashcardScreenState extends State<AddFlashcardScreen> {
+  final TextEditingController _termController = TextEditingController();
+  final TextEditingController _definitionController = TextEditingController();
+
+  @override
+  void dispose() {
+    _termController.dispose();
+    _definitionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
