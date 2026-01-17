@@ -24,6 +24,12 @@ class FlashcardViewerScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flashcards Learner'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Center(
         child: Container(
