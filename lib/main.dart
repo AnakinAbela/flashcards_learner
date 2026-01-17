@@ -21,9 +21,26 @@ class FlashcardViewerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flashcards Learner'),
+      ),
       body: Center(
-        child: Text('Flashcards Learner'),
+        child: Container(
+          width: double.infinity,
+          margin: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black12),
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+          ),
+          child: const Text(
+            'No flashcards yet',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
       ),
     );
   }
