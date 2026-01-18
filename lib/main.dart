@@ -102,6 +102,11 @@ class _AddFlashcardScreenState extends State<AddFlashcardScreen> {
                 border: OutlineInputBorder(),
               ),
             ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Save'),
+            ),
           ],
         ),
       ),
