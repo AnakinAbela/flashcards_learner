@@ -31,6 +31,12 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
   int _currentIndex = 0;
   bool _showTerm = true;
 
+  @override
+  void initState() {
+    super.initState();
+    _loadCards();
+  }
+
   Future<void> _loadCards() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString('flashcards') ?? '[]';
