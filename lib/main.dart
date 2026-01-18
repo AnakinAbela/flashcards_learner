@@ -27,6 +27,10 @@ class FlashcardViewerScreen extends StatefulWidget {
 }
 
 class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
+  List<Map<String, String>> _cards = [];
+  int _currentIndex = 0;
+  bool _showTerm = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
