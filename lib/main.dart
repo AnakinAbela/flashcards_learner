@@ -129,7 +129,13 @@ class _AddFlashcardScreenState extends State<AddFlashcardScreen> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                await _saveCard();
+                if (!mounted) {
+                  return;
+                }
+                Navigator.pop(context, true);
+              },
               child: const Text('Save'),
             ),
           ],
