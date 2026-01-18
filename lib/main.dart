@@ -79,12 +79,31 @@ class _AddFlashcardScreenState extends State<AddFlashcardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Add Flashcard'),
+        title: const Text('Add Flashcard'),
       ),
-      body: Center(
-        child: Text('Add Flashcard Form'),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            TextField(
+              controller: _termController,
+              decoration: const InputDecoration(
+                labelText: 'Term',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _definitionController,
+              decoration: const InputDecoration(
+                labelText: 'Definition',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
