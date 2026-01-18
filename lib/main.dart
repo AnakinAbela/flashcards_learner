@@ -19,9 +19,14 @@ class MainApp extends StatelessWidget {
   }
 }
 
-class FlashcardViewerScreen extends StatelessWidget {
+class FlashcardViewerScreen extends StatefulWidget {
   const FlashcardViewerScreen({super.key});
 
+  @override
+  State<FlashcardViewerScreen> createState() => _FlashcardViewerScreenState();
+}
+
+class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
