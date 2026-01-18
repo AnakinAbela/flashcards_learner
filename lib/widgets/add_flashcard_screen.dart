@@ -1,0 +1,87 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class AddFlashcardScreen extends StatefulWidget {
+  const AddFlashcardScreen({super.key});
+
+  @override
+  State<AddFlashcardScreen> createState() => _AddFlashcardScreenState();
+}
+
+class _AddFlashcardScreenState extends State<AddFlashcardScreen> {
+  final TextEditingController _termController = TextEditingController();
+  final TextEditingController _definitionController = TextEditingController();
+
+  Future<void> _saveCard() async {
+    final term = _termController.text.trim();
+    final definition = _definitionController.text.trim();
+
+    if (term.isEmpty || definition.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter both term and definition.')),
+      );
+      return;
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString('flashcards') ?? '[]';
+    final decoded = jsonDecode(jsonString) as List<dynamic>;
+    final cards = decoded
+        .map((item) => Map<String, String>.from(item as Map))
+        .toList();
+
+    cards.add({'term': term, 'definition': definition});
+    await prefs.setString('flashcards', jsonEncode(cards));
+  }
+
+  @override
+  void dispose() {
+    _termController.dispose();
+    _definitionController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Flashcard'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            TextField(
+              controller: _termController,
+              decoration: const InputDecoration(
+                labelText: 'Term',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _definitionController,
+              decoration: const InputDecoration(
+                labelText: 'Definition',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                await _saveCard();
+                if (!mounted) {
+                  return;
+                }
+                Navigator.pop(context, true);
+              },
+              child: const Text('Save'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
