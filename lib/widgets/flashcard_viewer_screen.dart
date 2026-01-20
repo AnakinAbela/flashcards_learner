@@ -38,6 +38,35 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
     });
   }
 
+  void _flipCard() {
+    if (_cards.isEmpty) {
+      return;
+    }
+    setState(() {
+      _showTerm = !_showTerm;
+    });
+  }
+
+  void _nextCard() {
+    if (_cards.isEmpty) {
+      return;
+    }
+    setState(() {
+      _currentIndex = (_currentIndex + 1) % _cards.length;
+      _showTerm = true;
+    });
+  }
+
+  void _prevCard() {
+    if (_cards.isEmpty) {
+      return;
+    }
+    setState(() {
+      _currentIndex = (_currentIndex - 1 + _cards.length) % _cards.length;
+      _showTerm = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final hasCards = _cards.isNotEmpty;
@@ -68,19 +97,45 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
         ],
       ),
       body: Center(
-        child: Container(
-          width: double.infinity,
-          margin: const EdgeInsets.all(24),
+        child: Padding(
           padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black12),
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.white,
-          ),
-          child: Text(
-            cardText ?? '',
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black12),
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white,
+                ),
+                child: Text(
+                  cardText ?? '',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 20),
+                ),
+              ),
+              const SizedBox(height: 20),
+              if (hasCards)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: _prevCard,
+                      child: const Text('Prev'),
+                    ),
+                    ElevatedButton(
+                      onPressed: _flipCard,
+                      child: const Text('Flip'),
+                    ),
+                    ElevatedButton(
+                      onPressed: _nextCard,
+                      child: const Text('Next'),
+                    ),
+                  ],
+                ),
+            ],
           ),
         ),
       ),
