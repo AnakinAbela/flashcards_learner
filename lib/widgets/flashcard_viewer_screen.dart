@@ -40,6 +40,13 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final hasCards = _cards.isNotEmpty;
+    final cardText = hasCards
+        ? (_showTerm
+            ? _cards[_currentIndex]['term']
+            : _cards[_currentIndex]['definition'])
+        : 'No flashcards available';
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flashcards Learner'),
@@ -70,10 +77,10 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
             borderRadius: BorderRadius.circular(12),
             color: Colors.white,
           ),
-          child: const Text(
-            'No flashcards yet',
+          child: Text(
+            cardText ?? '',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
         ),
       ),
