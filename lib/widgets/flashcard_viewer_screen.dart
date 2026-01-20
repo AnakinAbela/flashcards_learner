@@ -46,13 +46,16 @@ class _FlashcardViewerScreenState extends State<FlashcardViewerScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              final saved = await Navigator.push<bool>(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const AddFlashcardScreen(),
                 ),
               );
+              if (saved == true) {
+                _loadCards();
+              }
             },
           ),
         ],
